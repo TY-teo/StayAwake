@@ -14,7 +14,15 @@
   <img src="https://img.shields.io/github/license/TY-teo/StayAwake?color=8957e5" alt="license">
 </p>
 
+<p align="center">
+  <a href="https://ty-teo.github.io/StayAwake/"><img src="https://img.shields.io/badge/官网-在线预览-37A6FF?style=for-the-badge" alt="Website"></a>
+  &nbsp;
+  <a href="https://github.com/TY-teo/StayAwake/releases/latest"><img src="https://img.shields.io/badge/下载-最新版本-2ea44f?style=for-the-badge" alt="Download"></a>
+</p>
+
 StayAwake 用最少的点击控制两件事：让系统空闲时不休眠，以及合上盖子也能继续跑任务。界面完全采用原生 macOS 系统设置风格，跟随系统浅/深外观，常驻菜单栏、不占 Dock。
+
+> 在线预览产品页：<https://ty-teo.github.io/StayAwake/>
 
 <p align="center">
   <img src="docs/screenshots/panel-active-light.png" width="280" alt="浅色">

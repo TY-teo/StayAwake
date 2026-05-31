@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh" data-font="system">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>StayAwake — 让你的 Mac 始终清醒</title>
+<link rel="icon" href="assets/icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css?v=15" />
+</head>
+<body>
+
+<!-- icon sprite ------------------------------------------------>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-laptop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="5" width="15" height="10" rx="1.6"/><path d="M2.5 19h19l-1.4-2.2H3.9L2.5 19Z"/></symbol>
+  <symbol id="i-updown" viewBox="0 0 12 14" fill="currentColor"><path d="M6 0 9.2 3.6H2.8L6 0Z"/><path d="M6 14 2.8 10.4h6.4L6 14Z"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l2.5-6 4 13 2.5-7h5"/></symbol>
+  <symbol id="i-warn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 1.8 20.5h20.4L12 3Z"/><path d="M12 9.5v5M12 17.6v.1"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.8a10.2 10.2 0 0 0-3.2 19.9c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .8.1-.6.3-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7 3.6 3.6 0 0 1 .1-2.7s.8-.3 2.7 1a9.4 9.4 0 0 1 4.9 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10.2 10.2 0 0 0 12 1.8Z"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5v11.4M7.4 10.3 12 14.9l4.6-4.6M4.5 19.5h15"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="m12 3 2.6 5.6 6.1.8-4.5 4.2 1.2 6L12 16.9 6.6 19.6l1.2-6L3.3 9.4l6.1-.8L12 3Z"/></symbol>
+  <symbol id="i-aru" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 13.7 9l5.8 1.7L13.7 12.4 12 18.2l-1.7-5.8L4.5 10.7 10.3 9 12 3.2Z"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7.7 4 3.8 5.7 1 8.5l1.8 1.8C5.2 7.9 8.4 6.5 12 6.5s6.8 1.4 9.2 3.8L23 8.5C20.2 5.7 16.3 4 12 4Zm0 4.5c-2.8 0-5.4 1.1-7.3 3l1.8 1.8c1.4-1.4 3.4-2.3 5.5-2.3s4.1.9 5.5 2.3l1.8-1.8c-1.9-1.9-4.5-3-7.3-3Zm0 4.5a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2Z"/></symbol>
+  <symbol id="i-batt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="8" width="16" height="8" rx="2.2"/><rect x="4" y="9.5" width="11" height="5" rx="1" fill="currentColor" stroke="none"/><path d="M20.5 11v2" stroke-linecap="round"/></symbol>
+  <symbol id="i-ctrl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 7h18M3 17h18"/><circle cx="9" cy="7" r="2.4" fill="currentColor"/><circle cx="15" cy="17" r="2.4" fill="currentColor"/></symbol>
+</svg>
+
+<div class="grain"></div>
+<div class="prog"></div>
+
+<!-- nav -------------------------------------------------------->
+<nav class="nav" id="nav">
+  <div class="nav__brand">
+    <img src="assets/icon.png" alt="StayAwake" />
+    <span>StayAwake</span>
+    <span class="nav__dot"></span>
+  </div>
+  <div class="nav__links">
+    <a href="#product" class="hide-sm">功能</a>
+    <a href="#how" class="hide-sm">原理</a>
+    <a href="#download" class="hide-sm">开源</a>
+    <a class="nav__cta" href="https://github.com/TY-teo/StayAwake/releases" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" style="width:15px;height:15px"><use href="#i-download"></use></svg>
+      下载
+    </a>
+  </div>
+</nav>
+
+<!-- ACT 1 · HERO — the icon ignites ---------------------------->
+<section class="act act-hero" id="hero" data-scene="night">
+  <div class="stage hero-stage">
+    <div class="stars" id="stars"></div>
+    <div class="daybreak" id="daybreak"></div>
+
+    <div class="hero-icon" id="heroIcon">
+      <div class="bloom" id="bloom"></div>
+      <img src="assets/icon.png" alt="StayAwake — 合盖仍在运行" id="iconImg" />
+    </div>
+
+    <div class="hero-beat night" id="beatNight">
+      <div class="eyebrow hero-eyebrow">FOR macOS · 菜单栏常驻</div>
+      <h1 class="disp hero-h">每台 Mac<br>都会<em>睡着</em></h1>
+      <p class="hero-sub cjk">几分钟无操作,屏幕变暗,系统休眠<br>下载中断、渲染停摆、远程掉线</p>
+    </div>
+
+    <div class="hero-day" id="beatDay" style="opacity:0">
+      <div class="eyebrow" style="color:var(--amber-deep);margin-bottom:22px">STAYAWAKE · FOR&nbsp;macOS</div>
+      <h1 class="disp hero-day-h">这一台,<br><em>始终清醒</em></h1>
+      <p class="hero-day-sub cjk">合上盖子,它依然亮着,菜单栏里一个开关,基于系统级电源声明,让你的 Mac 永不入睡 —— 下载、渲染、远程,通通不中断</p>
+      <div class="hero-cue"><span class="cue-line"></span>往下看,它如何做到</div>
+    </div>
+
+    <div class="scrollhint" id="scrollhint">
+      <span>滚动</span>
+      <span class="line"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ACT 2 · PRODUCT — panel lights up per feature -------------->
+<section class="act act-product" id="product" data-scene="day">
+  <div class="stage product-stage">
+    <div class="product-grid">
+
+      <div class="product-copy">
+        <div class="eyebrow">一切都在菜单栏里</div>
+
+        <div class="feat" data-target="#pm-master">
+          <div class="feat-num">01 — 保持唤醒</div>
+          <h3>一个开关,<br>整台 Mac 不再休眠</h3>
+          <p>基于 IOPMAssertion 向系统声明「请勿空闲休眠」,无论插电还是电池,通通有效</p>
+          <p class="cjk-sub">Prevents idle system sleep · on AC &amp; battery</p>
+        </div>
+
+        <div class="feat" data-target="#row-screen">
+          <div class="feat-num">02 — 屏幕策略</div>
+          <h3>系统醒着,<br>屏幕由你决定</h3>
+          <p>允许息屏省电,或让屏幕常亮,系统始终不休眠,屏幕亮不亮你说了算</p>
+          <p class="cjk-sub">Allow display sleep · or keep it always on</p>
+        </div>
+
+        <div class="feat" data-target="#row-duration">
+          <div class="feat-num">03 — 保持时长</div>
+          <h3>设定时长,<br>到点自动收手</h3>
+          <p>一直保持,或 30 分钟 / 1 / 2 / 5 小时,计时结束,自动交还系统默认策略</p>
+          <p class="cjk-sub">Keep for a set duration · auto-restores</p>
+        </div>
+
+        <div class="feat" data-target="#row-lid">
+          <div class="feat-num">04 — 合盖继续运行</div>
+          <h3>合上盖子,<br>任务继续跑</h3>
+          <p>合盖也不休眠,下载、渲染、跑服务统统不中断,贴心提醒散热与电量,建议插电使用</p>
+          <p class="cjk-sub">Runs with the lid closed</p>
+        </div>
+
+        <div class="feat" data-target="#row-pw">
+          <div class="feat-num">05 — 切换时免输密码</div>
+          <h3>开合之间,<br>不再反复输密码</h3>
+          <p>一次性授权后,合盖、开盖切换无需每次输入密码,顺手又安心</p>
+          <p class="cjk-sub">One-time authorization · skip the wake password</p>
+        </div>
+
+        <div class="feat" data-target="#row-launch">
+          <div class="feat-num">06 — 开机自启 · 原生</div>
+          <h3>登录即就位,<br>像系统自带一样</h3>
+          <p>SMAppService 注册登录项,开机自动待命,系统设置风格、系统强调色、SF Symbols、菜单栏常驻</p>
+          <p class="cjk-sub">Launch at login · native to macOS</p>
+        </div>
+      </div>
+
+      <div class="product-panelwrap" id="panelWrap">
+        <div class="panel" id="panel">
+          <div class="pp">
+            <div class="p-head">
+              <img class="appicon" src="assets/icon.png" alt="" />
+              <div class="hwrap">
+                <span class="nm">StayAwake</span>
+                <span class="run">合盖运行中</span>
+              </div>
+              <span class="livedot"></span>
+            </div>
+
+            <div class="p-card">
+              <div class="p-row" id="pm-master">
+                <div class="tx">
+                  <div class="tt">保持唤醒</div>
+                  <div class="ss">系统空闲时不休眠,无论是否插电</div>
+                </div>
+                <div class="sw" data-on="1"><i></i></div>
+              </div>
+            </div>
+
+            <div class="p-card">
+              <div class="p-pick" id="row-screen">
+                <span class="lb">屏幕策略</span>
+                <span class="dd">屏幕常亮<span class="chev"><svg viewBox="0 0 12 14"><use href="#i-updown"></use></svg></span></span>
+              </div>
+              <div class="p-pick" id="row-duration">
+                <span class="lb">保持时长</span>
+                <span class="dd">一直保持<span class="chev"><svg viewBox="0 0 12 14"><use href="#i-updown"></use></svg></span></span>
+              </div>
+            </div>
+
+            <div class="p-card">
+              <div class="p-row" id="row-lid">
+                <div class="tx">
+                  <div class="tt">合盖继续运行</div>
+                  <div class="ss">合上盖子也不休眠,任务持续运行</div>
+                </div>
+                <div class="sw" data-on="1"><i></i></div>
+              </div>
+              <div class="p-warn"><svg viewBox="0 0 24 24"><use href="#i-warn"></use></svg>散热 / 电量风险,建议插电使用</div>
+              <div class="p-row" id="row-pw">
+                <div class="tx">
+                  <div class="tt">切换时免输密码</div>
+                  <div class="ss">已一次性授权,切换合盖无需输入密码</div>
+                </div>
+                <div class="sw" data-on="1"><i></i></div>
+              </div>
+            </div>
+
+            <div class="p-card">
+              <div class="p-row" id="row-launch">
+                <div class="tx"><div class="tt">开机自启</div></div>
+                <div class="sw" data-on="1"><i></i></div>
+              </div>
+            </div>
+
+            <button class="p-quit">退出 StayAwake</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ACT 3 · HOW IT WORKS --------------------------------------->
+<section class="act act-how" id="how" data-scene="day">
+  <div class="how-head">
+    <div class="eyebrow">原理 · 安静而克制</div>
+    <h2 class="disp">不模拟鼠标,不假装按键<br><em>只对系统说一句话</em></h2>
+  </div>
+  <div class="how-grid">
+    <div class="how-card">
+      <div class="hc-vis">
+        <div class="sonar">
+          <span class="wave"></span>
+          <span class="wave" style="animation-delay:.9s"></span>
+          <span class="wave" style="animation-delay:1.8s"></span>
+          <span class="core"><svg viewBox="0 0 24 24"><use href="#i-pulse"></use></svg></span>
+        </div>
+      </div>
+      <h4>一次系统声明</h4>
+      <p>通过 IOPMAssertion 告诉电源管理:此刻请勿进入空闲休眠,干净、官方、零副作用</p>
+      <p class="cjk-sub">No fake input — just a power assertion.</p>
+    </div>
+
+    <div class="how-card">
+      <div class="hc-vis">
+        <img class="lidicon" src="assets/icon.png" alt="合盖仍发光" />
+      </div>
+      <h4>合上盖子,照常工作</h4>
+      <p>合盖不休眠,大文件下载、视频导出、本地服务持续运行,一次授权后,合盖免密</p>
+      <p class="cjk-sub">Close the lid. Keep running.</p>
+    </div>
+
+    <div class="how-card">
+      <div class="hc-vis">
+        <svg class="ring" viewBox="0 0 120 120">
+          <circle class="track" cx="60" cy="60" r="54"></circle>
+          <circle class="arc" cx="60" cy="60" r="54"></circle>
+        </svg>
+        <span class="ring-lab">2h</span>
+      </div>
+      <h4>到点自动恢复</h4>
+      <p>设个时长,计时结束自动交还系统默认策略,开机自启,登录即待命,菜单栏常驻不打扰</p>
+      <p class="cjk-sub">Set it, forget it, auto-restore.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INTERLUDE · the switch flips on, floods into the finale ---->
+<section class="act act-flip" id="flipcta" data-scene="day">
+  <div class="stage flip-stage" id="flipStage">
+    <div class="flip-flood" id="flipFlood"></div>
+    <div class="flip-inner">
+      <div class="flip-eyebrow">最后一步</div>
+      <div class="flip-sw" id="flipSw">
+        <div class="glow" id="flipGlow"></div>
+        <div class="knob" id="flipKnob"></div>
+      </div>
+      <div class="flip-label">拨动开关,<br>让你的 Mac <em>保持清醒</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACT 4 · DOWNLOAD finale ------------------------------------>
+<section class="act act-cta" id="download" data-scene="night">
+  <div class="cta-aura"></div>
+  <div class="cta-inner">
+    <img class="cta-icon" src="assets/icon.png" alt="StayAwake" />
+    <h2 class="disp cta-h">让它<br><em>保持清醒</em></h2>
+    <p class="cta-sub cjk">为 macOS 打造的轻量菜单栏工具,点开即用,合盖照跑<br>在 GitHub 上获取最新版本,免费且开源</p>
+    <div class="cta-btns">
+      <a class="btn btn-primary" href="https://github.com/TY-teo/StayAwake/releases" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><use href="#i-download"></use></svg>
+        下载 for macOS
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/TY-teo/StayAwake" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><use href="#i-star"></use></svg>
+        在 GitHub 上 Star
+        <svg viewBox="0 0 24 24" style="width:15px;height:15px;opacity:.6"><use href="#i-aru"></use></svg>
+      </a>
+    </div>
+    <div class="cta-meta">
+      <span><svg viewBox="0 0 24 24"><use href="#i-laptop"></use></svg>Apple Silicon &amp; Intel</span>
+      <span><svg viewBox="0 0 24 24"><use href="#i-github"></use></svg>TY-teo/StayAwake</span>
+      <span><svg viewBox="0 0 24 24"><use href="#i-spark"></use></svg>原生 SwiftUI 体验</span>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span>StayAwake · 让你的 Mac 始终清醒</span>
+    <span><a href="https://github.com/TY-teo/StayAwake" target="_blank" rel="noopener">github.com/TY-teo/StayAwake ↗</a></span>
+  </footer>
+</section>
+
+<!-- scripts ---------------------------------------------------->
+<script src="scroll.js?v=15"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks-app.jsx?v=6"></script>
+</body>
+</html>
