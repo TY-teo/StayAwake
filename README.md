@@ -1,118 +1,102 @@
-# StayAwake
+<p align="center">
+  <img src="Resources/AppIcon.png" width="128" alt="StayAwake">
+</p>
 
-一个常驻 macOS 菜单栏的小工具，用最少的点击控制两件事：
+<h1 align="center">StayAwake</h1>
 
-1. **保持唤醒**：系统空闲时不休眠（无论是否插电），可选屏幕常亮或允许息屏，支持定时自动关闭。
-2. **合盖继续运行**：合上盖子也不休眠，长任务持续运行（含一次性免密授权）。
+<p align="center">常驻 macOS 菜单栏的「保持唤醒 / 合盖继续运行」小工具 · Keep your Mac awake, even with the lid closed.</p>
 
-界面完全采用原生 macOS 系统设置风格（原生控件、系统强调色、跟随系统浅/深外观），常驻菜单栏，无 Dock 图标。
+<p align="center">
+  <img src="https://img.shields.io/badge/platform-macOS%2026%2B-007AFF" alt="platform">
+  <img src="https://img.shields.io/badge/Swift-6-F05138" alt="swift">
+  <img src="https://img.shields.io/github/v/release/TY-teo/StayAwake?display_name=tag&color=2ea44f" alt="release">
+  <img src="https://img.shields.io/github/downloads/TY-teo/StayAwake/total?color=2ea44f" alt="downloads">
+  <img src="https://img.shields.io/github/license/TY-teo/StayAwake?color=8957e5" alt="license">
+</p>
 
-## 安装（下载版）
+StayAwake 用最少的点击控制两件事：让系统空闲时不休眠，以及合上盖子也能继续跑任务。界面完全采用原生 macOS 系统设置风格，跟随系统浅/深外观，常驻菜单栏、不占 Dock。
 
-1. 下载 `StayAwake-x.y.z.dmg`，打开后把 StayAwake 拖进 Applications。
-2. 本版本为 ad-hoc 自签、未做 Apple 公证，首次打开会被门禁拦一次，二选一放行：
-   - 系统设置 → 隐私与安全性 → 找到“已阻止 StayAwake”，点“仍要打开”；或
-   - 终端执行：`xattr -dr com.apple.quarantine /Applications/StayAwake.app`
-3. 之后双击即可，图标常驻菜单栏（无 Dock 图标）。
+<p align="center">
+  <img src="docs/screenshots/panel-active-light.png" width="280" alt="浅色">
+  &nbsp;&nbsp;
+  <img src="docs/screenshots/panel-active-dark.png" width="280" alt="深色">
+</p>
 
-## 运行要求
+## 下载
 
-- macOS 26.0 或更高（界面与底层 API 基于 macOS 26 SDK）。
-- 构建需 Xcode 26（Swift 6 工具链）。首次构建前需接受 Xcode 许可：`sudo xcodebuild -license accept`。
+- 直接下载（v1.0.0）：[StayAwake-1.0.0.dmg](https://github.com/TY-teo/StayAwake/releases/download/v1.0.0/StayAwake-1.0.0.dmg)
+- 全部版本：[Releases](https://github.com/TY-teo/StayAwake/releases)
 
-## 构建与运行
+> 要求 macOS 26.0+。本版本为 ad-hoc 自签、未做 Apple 公证，首次打开会被门禁拦一次，二选一放行：
+> - 系统设置 → 隐私与安全性 → 找到「已阻止 StayAwake」，点「仍要打开」；或
+> - 终端执行：`xattr -dr com.apple.quarantine /Applications/StayAwake.app`
 
-```bash
-# 编译并组装 StayAwake.app（输出到 dist/）
-./scripts/build-app.sh release
+## 功能
 
-# 启动
-open dist/StayAwake.app
-```
+- **保持唤醒**：基于 IOPMAssertion 阻止系统空闲休眠，无论插电或电池。
+- **屏幕策略**：`允许屏幕关闭`（默认，省电，系统不休眠但屏幕可息屏）或 `屏幕常亮`。
+- **定时自动关闭**：一直 / 30 分钟 / 1 / 2 / 5 小时，到时自动恢复。
+- **合盖继续运行**：合上盖子也不休眠，任务持续运行。
+- **合盖免密**：一次性授权后，开关合盖无需每次输入密码。
+- **开机自启**：基于 `SMAppService` 注册登录项。
+- **原生体验**：系统设置风格、系统强调色、SF Symbols、菜单栏常驻。
 
-启动后图标常驻菜单栏；点击图标弹出控制面板。开发期也可：
+## 使用
 
-```bash
-swift build          # 编译
-swift test           # 单元测试 + 运行时冒烟
-```
+1. 打开菜单栏的 StayAwake 图标。
+2. 打开「保持唤醒」即阻止空闲休眠；按需选择屏幕策略与保持时长。
+3. 打开「合盖继续运行」，面板内会就地出现风险说明与「开启 / 取消」，确认后生效（默认需一次管理员授权）。
+4. 打开「切换时免输密码」（一次性授权）后，之后切换合盖不再需要密码。
+5. 退出 App 会自动释放保持唤醒并恢复合盖休眠设置。
 
-## 使用说明
+### 合盖免密如何工作（安全说明）
 
-- **保持唤醒**：打开开关即阻止系统空闲休眠。
-  - *屏幕策略*：`允许屏幕关闭`（默认，省电，系统不休眠但屏幕可息屏）/ `屏幕常亮`。
-  - *保持时长*：`一直` 或 `30 分钟 / 1 / 2 / 5 小时`，到时自动关闭并恢复。
-- **合盖继续运行**：打开开关后，面板内会就地出现风险说明与“开启 / 取消”，确认后生效。
-  - 默认每次切换需输入一次管理员密码。
-  - 打开 **“切换时免输密码”**（一次性授权）后，之后切换合盖不再需要密码（见下）。
-- **开机自启**：注册为登录项，开机自动启动。
-- **退出 StayAwake**：释放所有电源断言；若合盖处于开启状态会先恢复再退出。
-
-## 合盖免密（一次性授权）
-
-合盖功能依赖 root 权限执行 `pmset -a disablesleep`。本地 ad-hoc 构建无法使用需 Developer ID 的特权守护进程，因此采用 **`/etc/sudoers.d/stayawake` 精确限定的免密规则**：
+合盖功能需要 root 执行 `pmset -a disablesleep`。开启「切换时免输密码」会经一次管理员授权，向 `/etc/sudoers.d/stayawake` 写入**严格限定到这两条命令**的免密规则：
 
 ```
 <user> ALL=(root) NOPASSWD: /usr/bin/pmset -a disablesleep 1, /usr/bin/pmset -a disablesleep 0
 ```
 
-- 打开“切换时免输密码”会弹一次管理员授权，写入上述规则（`visudo` 校验、`root:wheel 0440`、原子落盘）。
-- 之后切换合盖用 `sudo -n` 静默执行，无需密码。
-- 关闭该开关会删除规则（再弹一次授权）。
-- **安全**：权限严格限定到这两条精确命令，无法被放大用于其他用途。
-- **自适应回退**：若未安装免密规则，切换合盖自动回退到管理员授权弹窗，功能不中断。
+之后用 `sudo -n` 静默切换；关闭该开关即删除规则。权限范围仅限「开关合盖防睡」，无法被放大。未安装免密时，自动回退到管理员授权弹窗，功能不中断。
 
-## 关于合盖（Apple Silicon 重要提示）
+### 关于 Apple Silicon 合盖
 
-在 Apple Silicon（M 系列）上，合盖休眠部分由硬件门控。`pmset disablesleep` 是当前最佳可用机制（与 Amphetamine 同理），**但请在你的机器上实际合盖、放一个运行中的任务验证是否持续运行**。可靠性在**插电**和/或**接外接显示器**（标准 clamshell 模式）时最高。
+在 Apple Silicon（M 系列）上，合盖休眠部分由硬件门控。`pmset disablesleep` 是当前最佳可用机制，但请在你的机器上实际合盖、放一个运行中的任务验证。可靠性在**插电**和/或**接外接显示器**（标准 clamshell）时最高。
 
-## 卸载
+## 从源码构建
 
-1. 在面板关闭“切换时免输密码”（移除 sudoers 规则），或手动：`sudo rm -f /etc/sudoers.d/stayawake`。
-2. 关闭“开机自启”，退出 StayAwake。
-3. 删除 `dist/StayAwake.app`。
+要求 Xcode 26（Swift 6）。首次构建前接受许可：`sudo xcodebuild -license accept`。
 
-退出 / 重启后 `disablesleep` 会恢复；启动自检也会清理崩溃残留。
+```bash
+swift build && swift test          # 编译 + 单元测试（含 pmset 运行时冒烟）
+./scripts/build-app.sh release     # 组装 StayAwake.app（内嵌图标）-> dist/
+./scripts/make-dmg.sh release      # 打包发布 DMG -> dist/StayAwake-<版本>.dmg
+./scripts/make-icon.sh             # 从 icon/ 源 PNG 重新生成 AppIcon.icns
+```
 
 ## 项目结构
 
 ```
-Package.swift                     SwiftPM（macOS 26，语言模式 v5）
-Resources/Info.plist              LSUIElement 菜单栏 App + 显示名 StayAwake
-scripts/build-app.sh              编译并组装 StayAwake.app（内置嵌入 AppIcon）
-scripts/make-icon.sh              从 icon/ 源 PNG 生成全幅透明 AppIcon.icns
-scripts/iconprep.swift            图标预处理：近白转透明、裁白边、方形化
-scripts/windowlist.swift          开发辅助：按 PID 列出窗口（截图定位）
-Resources/AppIcon.png / .icns     处理后的全幅图标源与多分辨率图标
-Sources/StayAwakeKit/             逻辑层（可单测）
-  DisplayPolicy / KeepAwakeDuration / MenuBarIconModel
-  PowerAssertionManager           保持唤醒：IOPMAssertion 断言
-  PrivilegedRunner                AdminPromptRunner / AdaptivePrivilegedRunner / SudoersAuthorization
-  LidCloseManager                 合盖：set/restore + 启动自检 + 失败回滚
-  Preferences / LoginItemManager  偏好持久化 / 开机自启
-Sources/StayAwake/                SwiftUI 界面
-  StayAwakeApp                    入口（含 --snapshot 离屏渲染模式）
-  AppState                        单一状态源 + 定时器编排
-  ControlPanelView / DesignTokens 原生面板（GroupBox + 原生控件）
-  SnapshotRenderer                NSHostingView + cacheDisplay 离屏快照
-Tests/StayAwakeKitTests/          15 项：模型 / 时长 / 合盖还原 / sudoers 规则 / 断言运行时冒烟
-docs/screenshots/                 浅/深外观面板快照
+Sources/StayAwakeKit/   逻辑层（可单测）：电源断言、特权层、合盖管理、偏好、登录项、图标映射
+Sources/StayAwake/      SwiftUI 界面：MenuBarExtra 面板、状态编排、设计 token、离屏快照
+Tests/                  15 项单元测试 + 运行时冒烟
+Resources/              Info.plist、AppIcon（png/icns）
+scripts/                build-app / make-dmg / make-icon / iconprep / windowlist
+output/                 研究 / PRD / 架构 / UIUX / 交付文档
+docs/screenshots/       浅/深外观面板快照
 ```
 
-## 验证状态
+## 发布新版本
 
-- `swift build -c release`：零错误、零警告。
-- `swift test`：15/15 通过（含真实创建电源断言并核对 `pmset -g assertions` 的运行时冒烟）。
-- 源码零 emoji；界面浅/深外观快照均已核对。
+1. 改 `Resources/Info.plist` 的 `CFBundleShortVersionString` 与 `CFBundleVersion`。
+2. `./scripts/make-dmg.sh release` 生成新 DMG。
+3. GitHub → Releases → 新建 tag（如 `v1.1.0`）→ 上传 DMG → 填写说明（参考 `CHANGELOG.md`）→ 发布。
+4. 升级到「双击零警告」：购买 Apple Developer（$99/年）后加 Developer ID 签名 + `notarytool` 公证 + `stapler` 装订即可，功能不变。
 
-设计规范见用户级 Skill `apple-native-ui`（`~/.claude/skills/apple-native-ui/`），后续 Apple 平台开发沿用同一套原生设计规则。
+## 设计规范
 
-## 发布（GitHub Releases / 官网直接下载）
+界面遵循一套「原生、非 AI 感」的 macOS 设计规则（原生控件、克制配色、系统外观、SF Symbols、玻璃只用于悬浮层）。详见随附的 Claude Code 技能 `apple-native-ui`。
 
-1. `scripts/make-dmg.sh release` 生成 `dist/StayAwake-<版本>.dmg`（含拖拽安装符号链接与首次打开说明）。
-2. GitHub 仓库 → Releases → Draft a new release，打 tag（如 `v1.0.0`）。
-3. 上传该 DMG 作为 release 附件，发布说明里粘贴上面“安装（下载版）”的放行步骤。
-4. 升级版本：改 `Resources/Info.plist` 的 `CFBundleShortVersionString` / `CFBundleVersion`，重跑 make-dmg。
-5. 将来若购买 Apple Developer（$99/年），可加 Developer ID 签名 + `notarytool` 公证 + `stapler` 装订，实现下载双击零警告（无需再让用户手动放行）。
+## 许可证
 
-未公证版本的限制：用户首次打开需手动放行一次（见“安装”）。合盖功能与所有能力不受影响。
+[MIT](LICENSE) © 2026 TY-teo
