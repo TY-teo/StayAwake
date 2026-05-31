@@ -1,0 +1,28 @@
+{
+  "contract": "SUPER_DEV_FLOW_CONTRACT_V1",
+  "project": "ScreenSleepControl",
+  "mode": "standard",
+  "phaseChain": ["research", "docs", "docs_confirm", "spec", "frontend", "preview_confirm", "backend", "quality", "delivery"],
+  "currentPhase": "delivery",
+  "gates": {
+    "docConfirm": {"required": true, "status": "passed"},
+    "previewConfirm": {"required": true, "status": "passed"}
+  },
+  "qualityGate": {"build": "clean", "warnings": 0, "tests": "15/15", "emoji": 0},
+  "spec": ".super-dev/changes/001-stayawake-mvp/spec.md",
+  "tasks": ".super-dev/changes/001-stayawake-mvp/tasks.md",
+  "artifacts": {
+    "research": "output/screen-sleep-control-research.md",
+    "prd": "output/screen-sleep-control-prd.md",
+    "architecture": "output/screen-sleep-control-architecture.md",
+    "uiux": "output/screen-sleep-control-uiux.md"
+  },
+  "platform": {"os": "macOS 26.4", "xcode": "26.5", "minDeploymentTarget": "macOS 26.0"},
+  "resolvedDecisions": {
+    "lid_close_privilege_mechanism": "A_admin_prompt",
+    "default_display_policy": "allow_screen_off",
+    "duration_feature_in_mvp": true,
+    "display_name": "StayAwake"
+  },
+  "openDecisions": []
+}

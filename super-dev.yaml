@@ -1,0 +1,13 @@
+project: ScreenSleepControl
+mode: standard
+platform: macos
+language: swift
+ui: swiftui
+designLanguage: liquid-glass-macos26
+minDeploymentTarget: "26.0"
+appType: menu-bar-extra
+features:
+  - keep-awake-power-assertion
+  - lid-close-disablesleep
+iconSystem: sf-symbols
+phase: docs_confirm
