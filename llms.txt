@@ -1,0 +1,34 @@
+# StayAwake
+
+> Native macOS menu bar app that keeps a MacBook awake while Claude Code, OpenAI Codex, and Cursor run long agent tasks - including with the lid closed. Open source (MIT), built for the AI-agent era.
+
+## What it does
+- Holds a `kIOPMAssertionTypePreventUserIdleSystemSleep` IOPMAssertion to stop idle system sleep.
+- Optionally holds a second `kIOPMAssertionTypePreventUserIdleDisplaySleep` assertion when you want the screen on.
+- For lid-closed sleep, runs `/usr/bin/pmset -a disablesleep 1` through a `PrivilegedRunner` (admin prompt or a one-time scoped sudoers rule).
+- Auto-off timer (indefinite, 30 / 60 / 120 / 300 min); on launch it restores `disablesleep` if a prior crash left it on.
+
+## Designed for
+- Claude Code overnight agent runs.
+- OpenAI Codex long sessions where the iOS client must keep talking to the Mac.
+- Cursor background indexing and multi-file refactors.
+- Half-open MacBook scenarios where you cannot keep carrying the lid open through airports, gyms, or buses.
+
+## Honest limits
+- Ad-hoc signed (not notarized yet). First launch needs Gatekeeper approval.
+- On Apple Silicon, lid-close sleep is partially hardware-gated; works best on power and / or with an external display.
+- The optional sudoers rule is strictly scoped: `<user> ALL=(root) NOPASSWD: /usr/bin/pmset -a disablesleep 1, /usr/bin/pmset -a disablesleep 0`. It cannot be widened to arbitrary root.
+
+## Differs from
+- KeepingYouAwake: explicitly opts out of lid-closed sleep (its README says so).
+- Caffeine / `caffeinate` CLI: only stops idle sleep.
+- Amphetamine: handles clamshell but is closed-source and Mac App Store sandboxed.
+- SleepSleuth ($1.99 Mac App Store): targets AI agents but only takes an idle-sleep assertion, so it does not survive lid close.
+- agents-sleep-preventer / Macchiato: closest open-source siblings; StayAwake adds a scoped no-password sudoers flow and an honest Apple Silicon limits note.
+
+## Links
+- Repo: https://github.com/TY-teo/StayAwake
+- Releases: https://github.com/TY-teo/StayAwake/releases
+- Website: https://ty-teo.github.io/StayAwake/
+- Sister project (battery / charge ceiling): https://github.com/TY-teo/ChargeWatching
+- License: MIT
