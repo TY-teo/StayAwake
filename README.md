@@ -58,7 +58,7 @@ StayAwake makes the AI-agent case the default, not a workaround.
 - Open source, MIT-licensed
 - Native SwiftUI menu bar app (System Settings-style, no emoji icons, no purple gradients)
 - v1.0.0 released 2026-05-31
-- Apple Silicon and Intel; macOS 26+
+- The v1.0.0 DMG (including Homebrew installs) requires Apple Silicon and macOS 26+
 - Ad-hoc signed (not notarized yet) - first launch needs Gatekeeper approval
 - Honest about hardware limits: on Apple Silicon, lid-close sleep is partially hardware-gated; reliability is highest on power and / or with an external display
 
@@ -128,6 +128,32 @@ You want the MacBook open on the table next to a whiteboard as a reference panel
 - **原生体验**：系统设置风格、系统强调色、SF Symbols、菜单栏常驻。
 
 ## 下载
+
+### Homebrew（Apple Silicon）
+
+```bash
+brew tap TY-teo/stayawake https://github.com/TY-teo/StayAwake.git
+brew install --cask TY-teo/stayawake/stayawake
+open -a StayAwake
+```
+
+升级：
+
+```bash
+brew update
+brew upgrade --cask TY-teo/stayawake/stayawake
+```
+
+升级或卸载前，先关闭「合盖继续运行」，再从面板点击「退出 StayAwake」。卸载前还应关闭「切换时免输密码」和「开机自启」，以移除可选的 sudoers 授权与登录项。
+
+```bash
+brew uninstall --cask TY-teo/stayawake/stayawake
+brew untap TY-teo/stayawake
+```
+
+如需同时清除偏好设置，将卸载命令改为 `brew uninstall --cask --zap TY-teo/stayawake/stayawake`。
+
+### 直接下载
 
 - 直接下载（v1.0.0）：[StayAwake-1.0.0.dmg](https://github.com/TY-teo/StayAwake/releases/download/v1.0.0/StayAwake-1.0.0.dmg)
 - 全部版本：[Releases](https://github.com/TY-teo/StayAwake/releases)
